@@ -1,0 +1,54 @@
+---
+title: "Testing Functions"
+format: html
+editor: visual
+---
+
+## Ex
+
+Load library
+
+```{r}
+library(testthat)
+library(devtools)
+library(remotes)
+```
+
+Write a function
+
+```{r}
+#set margin to 2 to calculate by column, 1 for rows
+# FUN = function being used, here it's the mean
+mean_range <- function(df) {
+  col_means <- apply(X = df, MARGIN = 2, FUN = mean, na.rm = TRUE)
+  col_mean_max <- max(col_means)
+  col_mean_min <- min(col_means)
+  # want a vector of column means
+  return(c(col_mean_min, col_mean_max))
+}
+```
+
+Check that it works
+
+```{r}
+# test function
+# mtcars is nice because all values are numeric
+mean_range(mtcars)
+```
+
+Test the function
+
+```{r}
+# test the length, which should always be 2 since the function gives us max & min means
+# if tests are passed, nothing should pop up
+expect_length(mean_range(mtcars), 2)
+
+# expect this to be a double
+# class is numeric, type is double
+expect_type(mean_range(mtcars), "double")
+
+# we also expect that: min mean < max mean
+# to check conditions like this, you can use expect_true
+# using the square brackets to pull values out of the position they're in, here the min mean is at the [1] position
+expect_true(mean_range(mtcars)[1] <= mean_range(mtcars)[2])
+```
