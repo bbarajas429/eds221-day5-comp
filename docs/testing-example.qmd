@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-## Ex
+## Testing Functions
 
 Load library
 
@@ -51,4 +51,16 @@ expect_type(mean_range(mtcars), "double")
 # to check conditions like this, you can use expect_true
 # using the square brackets to pull values out of the position they're in, here the min mean is at the [1] position
 expect_true(mean_range(mtcars)[1] <= mean_range(mtcars)[2])
+```
+
+## Calling in Functions
+
+```{r}
+# function name_cart created in R script
+# R scripts useful for storing functions, especially when they're longer
+
+# use here::here to get name_cart function out of the source folder
+source(here::here("src", "name_cart.R"))
+
+
 ```
